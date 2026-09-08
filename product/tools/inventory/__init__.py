@@ -1,0 +1,1 @@
+"""Target resource inventory tool."""

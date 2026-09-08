@@ -1,0 +1,26 @@
+[project]
+name = "useful-helpers"
+version = "0.1.0"
+description = "A local directory instrument with governed deterministic capabilities"
+requires-python = ">=3.10"
+license = { file = "LICENSE.md" }
+authors = [{ name = "Jacob Lambert" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<9",
+  "ruff>=0.15,<0.16",
+]
+
+# T0 intentionally chooses no build backend or artifact format. Release composition is
+# a later positive-boundary decision.
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q -p no:cacheprovider"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = [".builder/evidence", "release"]

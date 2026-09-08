@@ -1,0 +1,52 @@
+{
+  "contract_version": 1,
+  "id": "search_text",
+  "description": "Find exact text by line across bounded target files.",
+  "authority": "observe",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {"type": "string", "minLength": 1},
+      "case_sensitive": {"type": "boolean"},
+      "limit": {"type": "integer", "minimum": 1, "maximum": 1000}
+    },
+    "required": ["query"],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "ok": {"type": "boolean"},
+      "tool": {"type": "string"},
+      "query": {"type": "string"},
+      "case_sensitive": {"type": "boolean"},
+      "files_considered": {"type": "integer"},
+      "matches": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "handle": {"type": "string"},
+            "path": {"type": "string"},
+            "line": {"type": "integer"},
+            "text": {"type": "string"}
+          },
+          "required": ["handle", "path", "line", "text"],
+          "additionalProperties": false
+        }
+      },
+      "returned": {"type": "integer"},
+      "truncated": {"type": "boolean"},
+      "limitations": {"type": "array", "items": {"type": "string"}},
+      "error": {"type": "string"},
+      "error_kind": {"type": "string"}
+    },
+    "required": ["ok"],
+    "additionalProperties": false
+  },
+  "reads": ["target"],
+  "writes": [],
+  "applicability": {"domains": ["generic"], "requires": ["text_content"]},
+  "path_arguments": {},
+  "invocation": {"kind": "python", "entry": "tools/search_text/tool.py"}
+}

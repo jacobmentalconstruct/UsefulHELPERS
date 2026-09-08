@@ -1,0 +1,32 @@
+{
+  "contract_version": 1,
+  "id": "hash_file",
+  "description": "Compute a SHA-256 digest for one target-relative file.",
+  "authority": "observe",
+  "input_schema": {
+    "type": "object",
+    "properties": {"path": {"type": "string", "minLength": 1}},
+    "required": ["path"],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "ok": {"type": "boolean"},
+      "tool": {"type": "string"},
+      "handle": {"type": "string"},
+      "algorithm": {"type": "string"},
+      "digest": {"type": "string"},
+      "size_bytes": {"type": "integer"},
+      "error": {"type": "string"},
+      "error_kind": {"type": "string"}
+    },
+    "required": ["ok"],
+    "additionalProperties": false
+  },
+  "reads": ["target"],
+  "writes": [],
+  "applicability": {"domains": ["generic"], "requires": ["file"]},
+  "path_arguments": {"path": "target"},
+  "invocation": {"kind": "python", "entry": "tools/hash_file/tool.py"}
+}

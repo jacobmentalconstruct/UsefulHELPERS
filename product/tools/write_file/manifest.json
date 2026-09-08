@@ -1,0 +1,37 @@
+{
+  "contract_version": 1,
+  "id": "write_file",
+  "description": "Create or replace one target-relative UTF-8 file after explicit confirmation.",
+  "authority": "apply",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "path": {"type": "string", "minLength": 1},
+      "content": {"type": "string", "maxLength": 10000000},
+      "confirm": {"type": "boolean", "enum": [true]},
+      "overwrite": {"type": "boolean"}
+    },
+    "required": ["path", "content", "confirm"],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "ok": {"type": "boolean"},
+      "tool": {"type": "string"},
+      "handle": {"type": "string"},
+      "bytes_written": {"type": "integer"},
+      "created": {"type": "boolean"},
+      "overwritten": {"type": "boolean"},
+      "error": {"type": "string"},
+      "error_kind": {"type": "string"}
+    },
+    "required": ["ok"],
+    "additionalProperties": false
+  },
+  "reads": ["target"],
+  "writes": ["target"],
+  "applicability": {"domains": ["generic"], "requires": ["writable_target"]},
+  "path_arguments": {"path": "target"},
+  "invocation": {"kind": "python", "entry": "tools/write_file/tool.py"}
+}

@@ -1,0 +1,4 @@
+# RELEASE_MANIFEST.json records a SHA-256 for every file in this package, taken
+# from these exact bytes. Line endings must not be rewritten on checkout or a
+# clone would no longer verify against its own manifest.
+* -text
